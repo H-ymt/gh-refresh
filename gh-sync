@@ -25,6 +25,8 @@ git fetch -p
 git pull origin "$default"
 
 # マージ済みローカルブランチを掃除（未インストール・失敗でも gh-sync は成功扱い）
-if command -v gh >/dev/null 2>&1 && gh extension list 2>/dev/null | grep -q 'gh poi'; then
+# gh の extension 実行中は `gh extension list` がネスト呼び出しで空を返すことがあるため、
+# 存在チェックには使わず gh poi を直接叩いて可否を判定する
+if command -v gh >/dev/null 2>&1 && gh poi --help >/dev/null 2>&1; then
     gh poi || true
 fi
