@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ローカルの origin/HEAD からデフォルトブランチ名を取得（ネットワーク不要で高速）
+# コマンド置換の失敗（pipefail）で set -e を発火させないよう呼び出し側で || true で握る
+resolve_default() {
+    git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||'
+}
+
+default="$(resolve_default)" || true
+
+# 未設定なら origin/HEAD を一度セットしてから再取得
+if [ -z "$default" ]; then
+    git remote set-head origin -a >/dev/null 2>&1 || true
+    default="$(resolve_default)" || true
+fi
+
+if [ -z "$default" ]; then
+    echo "gh-sync: デフォルトブランチを特定できませんでした" >&2
+    exit 1
+fi
+
+git switch "$default"
+git fetch -p
+git pull origin "$default"
+
+# マージ済みローカルブランチを掃除（未インストール・失敗でも gh-sync は成功扱い）
+if command -v gh >/dev/null 2>&1 && gh extension list 2>/dev/null | grep -q 'gh poi'; then
+    gh poi || true
+fi
