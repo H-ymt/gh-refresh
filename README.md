@@ -10,8 +10,6 @@ git switch main && git fetch -p && git pull && gh poi
 gh refresh
 ```
 
-シェルに依存しないので、fish / zsh / bash どの環境でも同じ操作を実行できます。
-
 ## インストール
 
 ```sh
@@ -45,8 +43,6 @@ gh refresh
 3. `git fetch -p`（リモートで消えた追跡ブランチを prune）
 4. `git pull origin <default>`
 5. `gh poi` があれば実行し、マージ済みのローカルブランチを掃除
-
-> dotfiles の fish 関数 `gbase` を gh extension 化したものです。
 
 ## ライセンス
 
