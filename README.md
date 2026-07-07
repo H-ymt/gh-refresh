@@ -1,13 +1,13 @@
-# gh-sync
+# gh-refresh
 
 デフォルトブランチへ切り替えて最新化し、マージ済みのローカルブランチを掃除する [GitHub CLI](https://cli.github.com/) 拡張です。
 
-dotfiles の fish 関数 `gbase` を gh extension 化したもので、シェルに依存せずどの環境でも `gh sync` で同じ操作を実行できます。
+dotfiles の fish 関数 `gbase` を gh extension 化したもので、シェルに依存せずどの環境でも `gh refresh` で同じ操作を実行できます。
 
 ## インストール
 
 ```sh
-gh extension install H-ymt/gh-sync
+gh extension install H-ymt/gh-refresh
 ```
 
 ## 使い方
@@ -15,7 +15,7 @@ gh extension install H-ymt/gh-sync
 Git リポジトリ内で実行します。
 
 ```sh
-gh sync
+gh refresh
 ```
 
 以下を順に行います。
@@ -28,7 +28,7 @@ gh sync
 
 ## 任意依存
 
-- [`gh poi`](https://github.com/seachicken/gh-poi): マージ済みブランチの掃除に使用します。未インストールでも `gh sync` は成功します。
+- [`gh poi`](https://github.com/seachicken/gh-poi): マージ済みブランチの掃除に使用します。未インストールでも `gh refresh` は成功します。
 
   ```sh
   gh extension install seachicken/gh-poi
